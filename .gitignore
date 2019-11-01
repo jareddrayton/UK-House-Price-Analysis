@@ -1,1 +1,3 @@
 *.csv
+.ipynb_checkpoints/notebook-checkpoint.ipynb
+quotes_spider.py

@@ -1,5 +1,8 @@
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+
+from plotly.subplots import make_subplots
 from datetime import datetime
 
 # Import interest rate data
@@ -36,6 +39,9 @@ interest_rate['NewDate'] = interest_rate['Date Changed'].apply(date_change)
 
 
 fig = px.line(interest_rate, x='NewDate', y='Rate', line_shape='vh')
+fig.update_layout(xaxis_range=['1975-01-01','2019-01-01'])
+fig.update_layout(title_text='Time Series with Rangeslider',
+                  xaxis_rangeslider_visible=True)
 fig.show()
 
 
@@ -78,4 +84,43 @@ print(new)
 #df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv')
 
 fig = px.line(new, x='Date', y='Average_Price')
+fig.show()
+
+#fig = px.line(interest_rate, x='NewDate', y='Rate', line_shape='vh')
+
+
+# Make lists from Pandas series
+a = interest_rate["NewDate"].tolist()
+b = interest_rate["Rate"].tolist()
+c = new["Date"].tolist()
+d = new["Average_Price"].tolist()
+
+
+# Create figure with secondary y-axis
+fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+# Add traces
+fig.add_trace(
+    go.Scatter(x=a, y=b, name="yaxis data", line_shape='vh'),
+    secondary_y=False,
+)
+
+fig.add_trace(
+    go.Scatter(x=c, y=d, name="yaxis2 data"),
+    secondary_y=True,
+)
+
+# Add figure title
+fig.update_layout(
+    title_text="Double Y Axis Example",
+    xaxis_range=['1975-01-01','2019-01-01']
+)
+
+# Set x-axis title
+fig.update_xaxes(title_text="xaxis title")
+
+# Set y-axes titles
+fig.update_yaxes(title_text="<b>primary</b> yaxis title", secondary_y=False)
+fig.update_yaxes(title_text="<b>secondary</b> yaxis title", secondary_y=True)
+
 fig.show()

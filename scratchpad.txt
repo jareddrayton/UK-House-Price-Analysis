@@ -3,3 +3,7 @@ Plotting
 https://demo.bokeh.org/stocks
 
 https://plot.ly/python/financial-charts/
+
+https://plot.ly/python/time-series/
+
+https://user-images.githubusercontent.com/1280389/30086123-97c58bde-9267-11e7-98a0-7f626de5199a.gif
